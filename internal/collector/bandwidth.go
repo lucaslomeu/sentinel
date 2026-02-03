@@ -9,10 +9,10 @@ import (
 )
 
 type InterfaceStats struct {
-    Name      string
-    RxBytes   uint64
-    TxBytes   uint64
-    Timestamp time.Time
+	Name      string
+	RxBytes   uint64
+	TxBytes   uint64
+	Timestamp time.Time
 }
 
 func GetInterfaceStats() (*InterfaceStats, error) {
