@@ -73,9 +73,10 @@ func (h *Handlers) Devices(w http.ResponseWriter, r *http.Request) {
 
 func toDeviceResponse(d collector.Device) collector.DeviceResponse {
 	return collector.DeviceResponse{
-		IP:       d.IP,
-		MAC:      d.MAC,
-		LastSeen: d.LastSeen.Format(time.RFC3339),
+		IP:        d.IP,
+		MAC:       d.MAC,
+		LatencyMs: d.Latency,
+		LastSeen:  d.LastSeen.Format(time.RFC3339),
 	}
 }
 

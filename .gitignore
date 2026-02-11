@@ -1,0 +1,30 @@
+# Binaries and build artifacts
+/sentinel
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test and output files
+*.test
+*.out
+
+# Dependency directories
+/vendor/
+
+# Data files
+/data/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Logs
+*.log

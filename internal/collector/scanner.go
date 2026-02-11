@@ -2,6 +2,7 @@ package collector
 
 import (
 	"log"
+	"sync"
 	"time"
 )
 
@@ -35,6 +36,32 @@ func scanAndUpdate(store DeviceStore) error {
 	if err != nil {
 		return err
 	}
+
+	const (
+		maxConcurrentPings = 16
+		pingTimeout        = 2 * time.Second
+	)
+	sem := make(chan struct{}, maxConcurrentPings)
+	var wg sync.WaitGroup
+
+	for i := range devices {
+		i := i
+		wg.Add(1)
+		sem <- struct{}{}
+		go func() {
+			defer wg.Done()
+			defer func() { <-sem }()
+
+			latency, err := PingDevice(devices[i].IP, pingTimeout)
+			if err != nil {
+				return
+			}
+
+			devices[i].Latency = &latency
+		}()
+	}
+
+	wg.Wait()
 	store.UpdateDevices(devices)
 	return nil
 }

@@ -5,13 +5,15 @@ import "time"
 type Device struct {
 	IP       string    `json:"ip"`
 	MAC      string    `json:"mac"`
+	Latency  *int      `json:"latency_ms,omitempty"`
 	LastSeen time.Time `json:"last_seen"`
 }
 
 type DeviceResponse struct {
-	IP       string `json:"ip"`
-	MAC      string `json:"mac"`
-	LastSeen string `json:"last_seen"`
+	IP        string `json:"ip"`
+	MAC       string `json:"mac"`
+	LatencyMs *int   `json:"latency_ms,omitempty"`
+	LastSeen  string `json:"last_seen"`
 }
 
 type DevicesResponse struct {
